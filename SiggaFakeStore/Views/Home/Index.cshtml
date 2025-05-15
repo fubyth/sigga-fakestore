@@ -10,7 +10,7 @@
         List<FavoriteProduct?> products = await client.SearchProductsAsync(@ViewBag.user);
         if(products != null)
         {
-            <h1>Product List</h1>
+            <h1>Product List - Usuario @ViewBag.user</h1>
             foreach(FavoriteProduct product in products)
             {
                 <div>
