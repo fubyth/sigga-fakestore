@@ -1,4 +1,17 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function favoriteProduct(checkBox, userId) {
+    console.log(checkBox.value, userId);
 
-// Write your JavaScript code.
+    if(checkBox.checked){
+        var endpoint = '/Home/AddFavoriteProduct';
+    } else{
+        var endpoint = '/Home/RemoveFavoriteProduct';
+    }
+    
+    $.post(endpoint, {
+        id: checkBox.value,
+        user: userId,
+    }, function (data) {
+        console.log(data);
+    });
+
+  }
