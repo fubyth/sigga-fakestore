@@ -14,14 +14,8 @@ public class UserFavoriteProductsManagement
     public void AddFavorite(int id, int user)
     {
         UserFavoriteProducts userFavorites = LoadFavorites(user);
-        Console.WriteLine("user" + user + "Favorites antes: " + String.Join(", ", userFavorites.FavoriteProducts));
         userFavorites.AddFavoriteProduct(id);
-
-
-
         userFavoriteProductsDAOService.Save(UserFavoriteProductsDAO.FromUserFavoriteProducts(userFavorites));
-
-        Console.WriteLine("user" + user + "Favorites: " + String.Join(", ", userFavorites.FavoriteProducts));
     }
 
     public UserFavoriteProducts LoadFavorites(int user)
@@ -49,7 +43,5 @@ public class UserFavoriteProductsManagement
         userFavorites.RemoveFavoriteProduct(id);
 
         userFavoriteProductsDAOService.Save(UserFavoriteProductsDAO.FromUserFavoriteProducts(userFavorites));
-
-        Console.WriteLine("user"+user+"Favorites: " + String.Join(", ", userFavorites.FavoriteProducts));
     }
 }

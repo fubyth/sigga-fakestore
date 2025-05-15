@@ -9,8 +9,6 @@ public class DataBaseInitializator
     public static void InitializeDB()
     {
 
-        Console.WriteLine("BaseDirectory: " + AppContext.BaseDirectory);
-
         using (var connection = new SqliteConnection(connectionString))
         {
             connection.Open();
@@ -23,12 +21,6 @@ public class DataBaseInitializator
                         favorite_list TEXT NOT NULL
                     );
                 ";
-
-            // INSERT INTO user
-            // VALUES (1, 'Brice'),
-            //        (2, 'Alexander'),
-            //        (3, 'Nate');
-
             command.ExecuteNonQuery();
         }
     }

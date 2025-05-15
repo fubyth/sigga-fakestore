@@ -41,8 +41,6 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult AddFavoriteProduct(int id, int user)
     {
-        Console.WriteLine("Adding: " + id + " - " + user);
-
         userFavoriteProductsManagement.AddFavorite(id, user);
 
         return Json(true);
@@ -51,8 +49,6 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult RemoveFavoriteProduct(int id, int user)
     {
-        Console.WriteLine("Removing: " + id + " - " + user);
-
         userFavoriteProductsManagement.RemoveFavorite(id, user);
 
         return Json(true);
