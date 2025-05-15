@@ -1,6 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@using SiggaFakeStore.Services
+@{
+    ViewData["Title"] = "Product";
 }
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    @{
+        FavoriteProductService client = new FavoriteProductService();
 
-<p>Use this page to detail your site's privacy policy.</p>
+        FavoriteProduct? product = await client.SearchProductAsync(@ViewBag.id, @ViewBag.user);
+        if(product != null)
+        {
+            <h1>Product @product.Id - @product.Category</h1>
+                <div>
+                    <div>@product.Title</div>
+                    <div><img src="@product.Image" alt="@product.Title" width="42" height="50"></div>
+                    <div>
+                        <div>$ @product.Price</div>
+                        <div>
+                            @if(product.Favorite)
+                            {
+                                <input type="checkbox" id="@product.Id" value="@product.Id" checked onclick="favoriteProduct(this, @ViewBag.user)">
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="@product.Id" value="@product.Id" onclick="favoriteProduct(this, @ViewBag.user)">
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div>@product.Description</div>
+        }
+        else
+        {
+            <h1>Product not found</h1>
+        }
+
+    }
+</div>

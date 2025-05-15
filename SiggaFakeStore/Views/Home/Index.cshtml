@@ -1,8 +1,44 @@
-﻿@{
+﻿@using SiggaFakeStore.Services
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @{
+        FavoriteProductService client = new FavoriteProductService();
+
+        List<FavoriteProduct?> products = await client.SearchProductsAsync(@ViewBag.user);
+        if(products != null)
+        {
+            <h1>Product List</h1>
+            foreach(FavoriteProduct product in products)
+            {
+                <div>
+                    <a asp-action="Privacy" asp-route-id="@product.Id" asp-route-user="@ViewBag.user">
+                    <div>@product.Title</div>
+                    </a>
+                    <div><img src="@product.Image" alt="@product.Title" width="42" height="50"></div>
+                    <div>
+                        <div>$ @product.Price</div>
+                        <div>
+                            @if(product.Favorite)
+                            {
+                                <input type="checkbox" id="@product.Id" value="@product.Id" checked onclick="favoriteProduct(this, @ViewBag.user)">
+                            }
+                            else
+                            {
+                                <input type="checkbox" id="@product.Id" value="@product.Id" onclick="favoriteProduct(this, @ViewBag.user)">
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+            }
+        }
+        else
+        {
+            <h1>No products found</h1>
+        }
+
+    }
 </div>
